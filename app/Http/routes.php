@@ -11,9 +11,17 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'Auth\AuthController@getLogin');
+Route::post('/', 'Auth\AuthController@postLogin');
 
 Route::get('home', 'HomeController@index');
+Route::post('home', 'HomeController@index');
+
+// Authentication routes...
+
+// Registration routes...
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', 'Auth\AuthController@postRegister');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

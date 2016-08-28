@@ -1,5 +1,7 @@
 <?php namespace blog\Http\Controllers;
 
+use blog\Post;
+
 class HomeController extends Controller {
 
 	/*
@@ -30,7 +32,10 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+        $posts = Post::all();
+        return view('main')->with('posts', $posts);
+
+       // return view('main')->with();
 	}
 
 }
