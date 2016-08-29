@@ -1,8 +1,9 @@
 <?php namespace blog\Http\Controllers;
 
+use blog\Post;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller {
+class ContentController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -30,10 +31,11 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function posts()
 	{
+        $posts = Post::get();
         $user = Auth::user();
-        return view('home')->with('user', $user);
+        return view('posts')->with('posts', $posts)->with('username',$user->name);
 
        // return view('main')->with();
 	}

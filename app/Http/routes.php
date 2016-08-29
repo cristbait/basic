@@ -15,7 +15,9 @@ Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
 
 Route::get('home', 'HomeController@index');
-Route::post('home', 'HomeController@index');
+//Route::get('home', 'ContentController@posts');
+//Route::post('home', 'HomeController@index');
+Route::get('blog', 'ContentController@posts');
 
 // Authentication routes...
 

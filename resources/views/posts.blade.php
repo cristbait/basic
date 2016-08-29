@@ -1,8 +1,9 @@
-@extends('app')
+
+@extends('home')
 
 @section('content')
 
-<div class="container">
+<div class="navbar-left">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			@if($posts->count())
@@ -12,6 +13,9 @@
 
 					<div class="panel-body">
 						{{ $post->body }}
+					</div>
+					<div class="panel-body">
+						{{ $post->created_at->format('Y-m-d H:i')  }}  <div class="author">by {{ $username }} </div>
 					</div>
 				</div>
 				@endforeach
