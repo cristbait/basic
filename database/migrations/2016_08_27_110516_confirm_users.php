@@ -9,7 +9,8 @@ class ConfirmUsers extends Migration
             $table->increments('id');
             $table->string('email',255)->unique();
             $table->string('token',32);
-            $table->timestamps();
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
     public function down()

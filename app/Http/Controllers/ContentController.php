@@ -2,6 +2,7 @@
 
 use blog\Post;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\FriendFormRequest;
 
 class ContentController extends Controller {
 
@@ -39,5 +40,13 @@ class ContentController extends Controller {
 
        // return view('main')->with();
 	}
+
+    public function newPost()
+    {
+        $user = Auth::user();
+        return view('new')->with('username',$user->name);
+
+        // return view('main')->with();
+    }
 
 }

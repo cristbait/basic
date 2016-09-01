@@ -5,28 +5,34 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePostsTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('posts', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->timestamps();
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('posts', function($t){
+            $t->increments('id');
+            $t->integer('user_id')->unsigned();
+            $t->foreign('user_id')->references('id')->on('users');
+            $t->string('title', 100);
+            $t->text('body');
+            $t->string('slug', 200);
+            $t->boolean('enabled');
+            $t->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $t->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('posts');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('posts');
+    }
 
 }

@@ -18,6 +18,8 @@ Route::get('home', 'HomeController@index');
 //Route::get('home', 'ContentController@posts');
 //Route::post('home', 'HomeController@index');
 Route::get('blog', 'ContentController@posts');
+Route::get('new', 'ContentController@newPost');
+Route::post('new', 'PostController@store');
 
 // Authentication routes...
 
