@@ -8,6 +8,7 @@ class Post extends Model {
     {
         $this->enabled=1;
         $this->slug='';
+
     }
     protected $fillable = [
         'title',

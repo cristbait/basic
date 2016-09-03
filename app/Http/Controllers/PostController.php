@@ -5,6 +5,8 @@ use blog\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use blog\Post;
+use Illuminate\Support\Facades\Session;
+
 
 class PostController extends Controller {
 
@@ -41,6 +43,8 @@ class PostController extends Controller {
         $input = $request->all();
         Post::create(['title' => $title, 'body' => $body, 'user_id'=>$user_id]);
 
+        Session::flash('flash_message', 'Post successfully added!');
+
         return redirect()->back();
     }
 
@@ -61,10 +65,20 @@ class PostController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
-		//
-	}
+	public function edit($id, Request $request)
+    {
+        $title = $request->input('title');
+        $body = $request->input('body');
+        $post = Post::find($id);
+        $post->title = $title;
+        $post->body = $body;
+        $post->save();
+
+        Session::flash('flash_message', 'Post successfully added!');
+
+        return redirect()->back();
+
+    }
 
 	/**
 	 * Update the specified resource in storage.
@@ -74,7 +88,7 @@ class PostController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+
 	}
 
 	/**
@@ -85,7 +99,18 @@ class PostController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        $post = Post::findOrFail($id);
+        $post->delete();
 	}
+
+    public function editPost()
+    {
+        $user = Auth::user();
+        return view('new')->with('username',$user->name);
+
+        // return view('main')->with();
+    }
+
+
 
 }

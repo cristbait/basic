@@ -20,7 +20,17 @@ Route::get('home', 'HomeController@index');
 Route::get('blog', 'ContentController@posts');
 Route::get('new', 'ContentController@newPost');
 Route::post('new', 'PostController@store');
+Route::get('edit/{id}', [
+    'uses'  => 'ContentController@editPost'
+]);
 
+Route::patch('edit/update/{id}','PostController@edit');
+
+Route::delete('delete', [
+    'uses'  => 'ContentController@deletePost'
+]);
+
+Route::resource('post', 'PostController');
 // Authentication routes...
 
 // Registration routes...

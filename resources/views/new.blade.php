@@ -18,10 +18,16 @@
                             </div>
                         @endif
 
+                        @if(Session::has('flash_message'))
+                            <div class="alert alert-success">
+                                {{ Session::get('flash_message') }}
+                            </div>
+                        @endif
+
                             {!! Form::open([
                              'url' => 'new', 'method' => 'post'
                          ]) !!}
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Title</label>
@@ -29,10 +35,11 @@
                                     {!! Form::text('title', null,
                                         array('required',
                                               'class'=>'form-control',
-                                              'placeholder'=>'Head')) !!}
+                                              'placeholder'=>'Title',
+                                              'rowa'=>50)) !!}
                                 </div>
                             </div>
-
+                            <br><br>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Text</label>
                                 <div class="col-md-6">
@@ -42,7 +49,7 @@
                                                'placeholder'=>'Text')) !!}
                                 </div>
                             </div>
-
+                            <br><br>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
@@ -52,6 +59,7 @@
                             </div>
                             {!! Form::close() !!}
                         </form>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     </div>
                 </div>
             </div>

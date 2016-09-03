@@ -1,8 +1,10 @@
 <?php namespace blog\Http\Controllers;
 
 use blog\Post;
+use blog\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\FriendFormRequest;
+
 
 class ContentController extends Controller {
 
@@ -48,5 +50,24 @@ class ContentController extends Controller {
 
         // return view('main')->with();
     }
+
+    public function editPost($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('edit')->with('post',$post);
+
+        // return view('main')->with();
+    }
+
+    public function deletePost($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+        // return view('main')->with();
+        Session::flash('flash_message', 'Post successfully deleted!');
+
+        return redirect()->route('blog');
+    }
+
 
 }
