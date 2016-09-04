@@ -24,7 +24,7 @@ Route::post('new', 'PostController@store');
 Route::get('edit/{id}', 'ContentController@editPost');
 Route::patch('edit/update/{id}','PostController@edit');
 Route::any('delete/{id}', 'PostController@destroy');
-
+Route::any('feed', 'ContentController@feed');
 
 //Route::resource('post', 'PostController');
 

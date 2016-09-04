@@ -1,10 +1,12 @@
 <?php namespace blog\Http\Controllers;
 
 use blog\Post;
+use blog\User;
 use blog\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\FriendFormRequest;
-
+use DB;
+use App\Quotation;
 
 class ContentController extends Controller {
 
@@ -36,9 +38,9 @@ class ContentController extends Controller {
 	 */
 	public function posts()
 	{
-        $posts = Post::get();
-        $user = Auth::user();
-        return view('posts')->with('posts', $posts)->with('username',$user->name);
+        $username = Auth::user()->name;
+        $posts = Post::where('user_id',  Auth::user()->id)->get();
+        return view('content.posts')->with('username',$username)->with('posts', $posts);
 
        // return view('main')->with();
 	}
@@ -46,7 +48,7 @@ class ContentController extends Controller {
     public function newPost()
     {
         $user = Auth::user();
-        return view('new')->with('username',$user->name);
+        return view('content.new')->with('username',$user->name);
 
         // return view('main')->with();
     }
@@ -54,7 +56,22 @@ class ContentController extends Controller {
     public function editPost($id)
     {
         $post = Post::findOrFail($id);
-        return view('edit')->with('post',$post);
+        return view('content.edit')->with('post',$post);
+
+        // return view('main')->with();
+    }
+
+    public function feed()
+    {
+        //$posts=DB::table('posts')
+           // ->join('posts', 'users.id', '=', 'posts.user_id')
+         //   ->orderBy('posts.created_at')
+           // ->where('posts.user_id', '=', 'users.id')
+         //   ->get();
+        $posts = Post::get();
+        //$posts = Post::get();
+        $users = User::get();
+        return view('content.feed')->with('posts', $posts)->with('users', $users);
 
         // return view('main')->with();
     }

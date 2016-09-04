@@ -43,7 +43,7 @@ class PostController extends Controller {
         $input = $request->all();
         Post::create(['title' => $title, 'body' => $body, 'user_id'=>$user_id]);
 
-        return redirect('blog')->with('status', 'Post successfully added!');
+        return redirect('blog')->with('status', 'Post successfully deleted!');
     }
 
 	/**

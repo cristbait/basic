@@ -15,5 +15,9 @@ class Post extends Model {
         'body',
         'user_id'
     ];
+    public function user()
+    {
+        return $this->belongsTo('blog\User');
+    }
 
 }
