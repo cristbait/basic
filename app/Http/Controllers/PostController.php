@@ -65,14 +65,16 @@ class PostController extends Controller {
 	 */
 	public function edit($id, Request $request)
 	{
-        $title = $request->input('title');
-        $body = $request->input('body');
-        $post = Post::find($id);
-        $post->title = $title;
-        $post->body = $body;
-        $post->save();
-        Session::flash('flash_message', 'Post successfully edited!');
-        return redirect()->back();
+        $post = Post::findOrFail($id);
+        if (Auth::user()->id==$post->user_id) {
+            $title = $request->input('title');
+            $body = $request->input('body');
+
+            $post->title = $title;
+            $post->body = $body;
+            $post->save();
+            return redirect('home')->with('status', 'Post successfully edited!');
+        }
 	}
 
 	/**
@@ -94,7 +96,6 @@ class PostController extends Controller {
 	 */
 	public function destroy($id)
 	{
-
         $post = Post::findOrFail($id);
         if (Auth::user()->id==$post->user_id) {
             $post->delete();

@@ -5996,6 +5996,13 @@ button.close {
 .pull-right {
   float: right !important;
   margin-left: 10px;
+
+  background:none!important;
+  border:none;
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  cursor: pointer;
 }
 .pull-left {
   float: left !important;
