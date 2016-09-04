@@ -43,7 +43,7 @@ class PostController extends Controller {
         $input = $request->all();
         Post::create(['title' => $title, 'body' => $body, 'user_id'=>$user_id]);
 
-        return redirect('blog')->with('status', 'Post successfully deleted!');
+        return redirect('home')->with('status', 'Post successfully deleted!');
     }
 
 	/**
@@ -94,10 +94,12 @@ class PostController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        $post = Post::findOrFail($id);
-        $post->delete();
 
-        return redirect('blog')->with('status', 'Post successfully deleted!');
+        $post = Post::findOrFail($id);
+        if (Auth::user()->id==$post->user_id) {
+            $post->delete();
+            return redirect('home')->with('status', 'Post successfully deleted!');
+        }
 	}
 
     public function editPost()

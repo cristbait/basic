@@ -5,7 +5,7 @@
                     <div class="panel-heading">Menu</div>
 
                     <div class="panel-body">
-                        <li><a href="{{ url('/blog') }}">My Blog</a></li>
+                        <li><a href="{{ url('/home') }}">My Journal</a></li>
                         <li><a href="{{ url('/feed') }}">News</a></li>
                         <li><a href="{{ url('/new') }}">New Post</a></li>
                     </div>

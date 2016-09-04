@@ -36,11 +36,11 @@ class ContentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function posts()
+	public function blog()
 	{
         $username = Auth::user()->name;
         $posts = Post::where('user_id',  Auth::user()->id)->get();
-        return view('content.posts')->with('username',$username)->with('posts', $posts);
+        return view('content.posts')->with('username',$username)->with('posts', $posts)->with('own', true);
 
        // return view('main')->with();
 	}
@@ -73,6 +73,22 @@ class ContentController extends Controller {
         $users = User::get();
         return view('content.feed')->with('posts', $posts)->with('users', $users);
 
+        // return view('main')->with();
+    }
+
+    public function user($id)
+    {
+        $username = User::findOrFail($id)->name;
+        $posts = Post::where('user_id', $id)->get();
+
+        if (Auth::user()->id==$id)
+            {
+                return redirect()->action('ContentController@blog');
+            }
+            else {
+
+                return view('content.posts')->with('username', $username)->with('posts', $posts)->with ('own', false);
+            }
         // return view('main')->with();
     }
 

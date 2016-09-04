@@ -17,16 +17,15 @@ Route::post('/', 'Auth\AuthController@postLogin');
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
-Route::get('home', 'HomeController@index');
-Route::get('blog', 'ContentController@posts');
+Route::get('home', 'ContentController@blog');
 Route::get('new', 'ContentController@newPost');
 Route::post('new', 'PostController@store');
 Route::get('edit/{id}', 'ContentController@editPost');
 Route::patch('edit/update/{id}','PostController@edit');
 Route::any('delete/{id}', 'PostController@destroy');
 Route::any('feed', 'ContentController@feed');
+Route::any('user/id{id}', 'ContentController@user');
 
-//Route::resource('post', 'PostController');
 
 
 Route::controllers([

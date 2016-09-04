@@ -33,7 +33,7 @@ class HomeController extends Controller {
 	public function index()
 	{
         $user = Auth::user();
-        return view('home')->with('user', $user);
+        return view('content.home')->with('user', $user);
 
        // return view('main')->with();
 	}

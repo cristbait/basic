@@ -6254,3 +6254,10 @@ label,
 {
     float:right;
 }
+
+.title
+{
+  font-size: large;
+  font-weight: 800;
+  margin-bottom:22px;
+}
