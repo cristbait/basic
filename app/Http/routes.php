@@ -14,28 +14,20 @@
 Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
 
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', 'Auth\AuthController@postRegister');
+
 Route::get('home', 'HomeController@index');
-//Route::get('home', 'ContentController@posts');
-//Route::post('home', 'HomeController@index');
 Route::get('blog', 'ContentController@posts');
 Route::get('new', 'ContentController@newPost');
 Route::post('new', 'PostController@store');
-Route::get('edit/{id}', [
-    'uses'  => 'ContentController@editPost'
-]);
-
+Route::get('edit/{id}', 'ContentController@editPost');
 Route::patch('edit/update/{id}','PostController@edit');
+Route::any('delete/{id}', 'PostController@destroy');
 
-Route::delete('delete', [
-    'uses'  => 'ContentController@deletePost'
-]);
 
-Route::resource('post', 'PostController');
-// Authentication routes...
+//Route::resource('post', 'PostController');
 
-// Registration routes...
-Route::get('/register', 'Auth\AuthController@getRegister');
-Route::post('/register', 'Auth\AuthController@postRegister');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

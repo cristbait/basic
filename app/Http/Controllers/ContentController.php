@@ -59,15 +59,4 @@ class ContentController extends Controller {
         // return view('main')->with();
     }
 
-    public function deletePost($id)
-    {
-        $post = Post::findOrFail($id);
-        $post->delete();
-        // return view('main')->with();
-        Session::flash('flash_message', 'Post successfully deleted!');
-
-        return redirect()->route('blog');
-    }
-
-
 }

@@ -43,9 +43,7 @@ class PostController extends Controller {
         $input = $request->all();
         Post::create(['title' => $title, 'body' => $body, 'user_id'=>$user_id]);
 
-        Session::flash('flash_message', 'Post successfully added!');
-
-        return redirect()->back();
+        return redirect('blog')->with('status', 'Post successfully added!');
     }
 
 	/**
@@ -66,19 +64,16 @@ class PostController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id, Request $request)
-    {
+	{
         $title = $request->input('title');
         $body = $request->input('body');
         $post = Post::find($id);
         $post->title = $title;
         $post->body = $body;
         $post->save();
-
-        Session::flash('flash_message', 'Post successfully added!');
-
+        Session::flash('flash_message', 'Post successfully edited!');
         return redirect()->back();
-
-    }
+	}
 
 	/**
 	 * Update the specified resource in storage.
@@ -101,6 +96,8 @@ class PostController extends Controller {
 	{
         $post = Post::findOrFail($id);
         $post->delete();
+
+        return redirect('blog')->with('status', 'Post successfully deleted!');
 	}
 
     public function editPost()
