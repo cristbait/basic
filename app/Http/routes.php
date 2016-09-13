@@ -35,4 +35,5 @@ Route::patch('edit/update/{id}','PostController@edit');
 Route::any('delete/{id}', 'PostController@destroy');
 
 
+// В Laravel есть замечательный Route:resource, настоятельно рекомендую пользоваться
 

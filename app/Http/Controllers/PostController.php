@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 
 class PostController extends Controller {
-
+// Логика PostController-а пересекается с ContentController-ом, объедини их
 	/**
 	 * Display a listing of the resource.
 	 *

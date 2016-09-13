@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller {
-
+// И чем он от WellcomeController-а отличается? Объедини их
 	/*
 	|--------------------------------------------------------------------------
 	| Home Controller

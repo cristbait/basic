@@ -36,15 +36,16 @@ class ContentController extends Controller {
 	 *
 	 * @return Response
 	 */
+    // См. конвенции именований, название метода всегда должно быть действием
 	public function blog()
 	{
         $username = Auth::user()->name;
         $posts = Post::where('user_id',  Auth::user()->id)->get();
         return view('content.posts')->with('username',$username)->with('posts', $posts)->with('own', true);
-
+// В комментариях кода быть не должно
        // return view('main')->with();
 	}
-
+// addPost, скорее
     public function newPost()
     {
         $user = Auth::user();
@@ -61,6 +62,7 @@ class ContentController extends Controller {
         // return view('main')->with();
     }
 
+    // Названия, см. выше
     public function feed()
     {
         //$posts=DB::table('posts')
@@ -76,11 +78,14 @@ class ContentController extends Controller {
         // return view('main')->with();
     }
 
+
+    // Названия, см. выше
     public function user($id)
     {
         $username = User::findOrFail($id)->name;
         $posts = Post::where('user_id', $id)->get();
 
+        //  Здесь middleware  нужен
         if (Auth::user()->id==$id)
             {
                 return redirect()->action('ContentController@blog');
