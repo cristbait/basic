@@ -5995,12 +5995,12 @@ button.close {
 }
 .pull-right {
   float: right !important;
-  margin-left: 10px;
-
+  margin-left: 10px; !important;
   background:none!important;
   border:none;
   padding:0!important;
   font: inherit;
+  color: lightskyblue;
   /*border is optional*/
   cursor: pointer;
 }

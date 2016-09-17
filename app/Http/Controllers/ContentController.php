@@ -4,8 +4,10 @@ use blog\Post;
 use blog\User;
 use blog\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Http\Requests\FriendFormRequest;
 use DB;
+use Models;
 use App\Quotation;
 
 class ContentController extends Controller {
@@ -36,50 +38,33 @@ class ContentController extends Controller {
 	 *
 	 * @return Response
 	 */
-    // См. конвенции именований, название метода всегда должно быть действием
-	public function blog()
+
+	public function showBlog()
 	{
         $username = Auth::user()->name;
         $posts = Post::where('user_id',  Auth::user()->id)->get();
         return view('content.posts')->with('username',$username)->with('posts', $posts)->with('own', true);
-// В комментариях кода быть не должно
-       // return view('main')->with();
 	}
-// addPost, скорее
-    public function newPost()
+
+    public function showAddingPost()
     {
         $user = Auth::user();
         return view('content.new')->with('username',$user->name);
-
-        // return view('main')->with();
     }
 
-    public function editPost($id)
+    public function showEditingPost($id)
     {
         $post = Post::findOrFail($id);
         return view('content.edit')->with('post',$post);
-
-        // return view('main')->with();
     }
 
-    // Названия, см. выше
-    public function feed()
+    public function showFeed()
     {
-        //$posts=DB::table('posts')
-           // ->join('posts', 'users.id', '=', 'posts.user_id')
-         //   ->orderBy('posts.created_at')
-           // ->where('posts.user_id', '=', 'users.id')
-         //   ->get();
         $posts = Post::get();
-        //$posts = Post::get();
         $users = User::get();
         return view('content.feed')->with('posts', $posts)->with('users', $users);
-
-        // return view('main')->with();
     }
 
-
-    // Названия, см. выше
     public function user($id)
     {
         $username = User::findOrFail($id)->name;
@@ -94,7 +79,62 @@ class ContentController extends Controller {
 
                 return view('content.posts')->with('username', $username)->with('posts', $posts)->with ('own', false);
             }
-        // return view('main')->with();
     }
 
+    public function create(Request $request)
+    {
+        $title = $request->input('title');
+        $body = $request->input('body');
+        $user_id = Auth::user()->id;
+
+        Post::create(['title' => $title, 'body' => $body, 'user_id'=>$user_id]);
+
+        return redirect('home')->with('status', 'Post successfully added!');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id, Request $request)
+    {
+        $post = Post::findOrFail($id);
+        return view('content.edit')->with('post',$post);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id, Request $request)
+    {
+        $post = Post::findOrFail($id);
+        if (Auth::user()->id==$post->user_id) {
+            $title = $request->input('title');
+            $body = $request->input('body');
+            $post->title = $title;
+            $post->body = $body;
+            $post->save();
+            return redirect('home')->with('status', 'Post successfully edited!');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (Auth::user()->id==$post->user_id) {
+            $post->delete();
+            return redirect('home')->with('status', 'Post successfully deleted!');
+        }
+    }
 }

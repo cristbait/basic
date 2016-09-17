@@ -22,18 +22,12 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-//content control
-Route::get('home', 'ContentController@blog');
-Route::get('new', 'ContentController@newPost');
-Route::get('feed', 'ContentController@feed');
+Route::get('home', 'ContentController@showBlog');
+Route::get('new', 'ContentController@showAddingPost');
+Route::get('feed', 'ContentController@showFeed');
 Route::get('user/id{id}', 'ContentController@user');
-Route::get('edit/{id}', 'ContentController@editPost');
+Route::get('edit/{id}', 'ContentController@showEditingPost');
 
-//actions with posts
-Route::post('new', 'PostController@store');
-Route::patch('edit/update/{id}','PostController@edit');
-Route::any('delete/{id}', 'PostController@destroy');
-
-
-// В Laravel есть замечательный Route:resource, настоятельно рекомендую пользоваться
-
+Route::resource('posts', 'ContentController', ['only' => [
+    'create', 'update','edit','destroy'
+]]);
