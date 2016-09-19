@@ -1,6 +1,7 @@
 <?php
 
 use blog\User;
+use blog\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 
@@ -55,26 +56,34 @@ class RoutTest extends TestCase {
     public function testEditView()
     {
         Auth::loginUsingId(1);
-        $response = $this->action('GET', 'ContentController@showEditingPost', ['id' => 6]);
-        $view = $response->original;
-        $this->assertEquals('edit', $view['name']);
+        $posts = Post::where('user_id',  Auth::user()->id)->get();
+        foreach ($posts as $post)
+        {
+            $response = $this->action('GET', 'ContentController@showEditingPost', ['id' => $post->id]);
+            $view = $response->original;
+            $this->assertEquals('edit', $view['name']);
+        }
     }
 
     public function testUserView()
     {
         Auth::loginUsingId(1);
-        $response = $this->call('GET', 'user/id2');
-        $view = $response->original;
-        $this->assertEquals('user', $view['name']);
+        $users = User::all();
+        foreach ($users as $user)
+        {
+            $response = $this->call('GET', 'user/id'.$user->id);
+            if ($user->id==1)
+            {
+                $this->assertRedirectedTo('home');
+            }
+            else
+            {
+                $view = $response->original;
+                $this->assertEquals('user', $view['name']);
+            }
+        }
+
     }
-
-
-
-
-
-
-
-
 
 
 }
