@@ -44,7 +44,7 @@
                             <div class="panel-body">
                                 {{ $post->created_at->format('Y-m-d H:i')  }}
                                 <div class="author">by
-                                    <a href='{{ URL::action('ContentController@user', $post->user->id) }}'> {{$post->user->name}} </a>
+                                    <a href='{{ URL::to('user/id'.$post->user->id)}}'> {{$post->user->name}} </a>
                                 </div>
                             </div>
                         </div>

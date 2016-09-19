@@ -43,42 +43,26 @@ class ContentController extends Controller {
 	{
         $username = Auth::user()->name;
         $posts = Post::where('user_id',  Auth::user()->id)->get();
-        return view('content.posts')->with('username',$username)->with('posts', $posts)->with('own', true);
+        return view('content.posts', ['name' => 'blog'])->with('username',$username)->with('posts', $posts)->with('own', true);
 	}
 
     public function showAddingPost()
     {
         $user = Auth::user();
-        return view('content.new')->with('username',$user->name);
+        return view('content.new', ['name' => 'new'])->with('username',$user->name);
     }
 
     public function showEditingPost($id)
     {
         $post = Post::findOrFail($id);
-        return view('content.edit')->with('post',$post);
+        return view('content.edit', ['name' => 'edit'])->with('post',$post);
     }
 
     public function showFeed()
     {
         $posts = Post::get();
         $users = User::get();
-        return view('content.feed')->with('posts', $posts)->with('users', $users);
-    }
-
-    public function user($id)
-    {
-        $username = User::findOrFail($id)->name;
-        $posts = Post::where('user_id', $id)->get();
-
-        //  Здесь middleware  нужен
-        if (Auth::user()->id==$id)
-            {
-                return redirect()->action('ContentController@blog');
-            }
-            else {
-
-                return view('content.posts')->with('username', $username)->with('posts', $posts)->with ('own', false);
-            }
+        return view('content.feed', ['name' => 'feed'])->with('posts', $posts)->with('users', $users);
     }
 
     public function create(Request $request)

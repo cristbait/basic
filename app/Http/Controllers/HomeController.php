@@ -34,8 +34,6 @@ class HomeController extends Controller {
 	{
         $user = Auth::user();
         return view('content.home')->with('user', $user);
-
-       // return view('main')->with();
 	}
 
 }

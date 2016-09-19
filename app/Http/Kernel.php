@@ -27,6 +27,7 @@ class Kernel extends HttpKernel {
 		'auth' => 'blog\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'blog\Http\Middleware\RedirectIfAuthenticated',
+        'own' => 'blog\Http\Middleware\OwnPost',
 	];
 
 }

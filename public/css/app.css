@@ -6000,7 +6000,7 @@ button.close {
   border:none;
   padding:0!important;
   font: inherit;
-  color: lightskyblue;
+  color: steelblue;
   /*border is optional*/
   cursor: pointer;
 }

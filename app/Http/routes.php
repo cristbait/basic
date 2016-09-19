@@ -25,7 +25,10 @@ Route::controllers([
 Route::get('home', 'ContentController@showBlog');
 Route::get('new', 'ContentController@showAddingPost');
 Route::get('feed', 'ContentController@showFeed');
-Route::get('user/id{id}', 'ContentController@user');
+Route::get('user/id{id}', ['middleware' => 'own', function()
+{
+    'home';
+}]);
 Route::get('edit/{id}', 'ContentController@showEditingPost');
 
 Route::resource('posts', 'ContentController', ['only' => [
